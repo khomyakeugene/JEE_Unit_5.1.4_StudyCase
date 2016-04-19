@@ -15,11 +15,13 @@ public class Bootstrap {
 
     private static TaskExecutor<Number> taskExecutor = new TaskExecutor<>();
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception  {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("application-context.xml");
+        Bootstrap bootstrap = applicationContext.getBean("bootstrap", Bootstrap.class);
+        bootstrap.execute();
     }
 
-    public void execute() throws Exception {
+    private void execute() throws Exception {
         taskExecutor.addTask(new CalcAverageDoubleValueTask(calcAverageDoubleValueTaskInputData), new NotNullValidator<>());
         taskExecutor.addTask(new CalcAverageDoubleValueTask(emptyDoubleArray), new NotNullValidator<>());
         taskExecutor.addTask(new TransformCelsiusToFahrenheitTask(TransformCelsiusToFahrenheitTaskInputData));

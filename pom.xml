@@ -8,10 +8,15 @@
     <artifactId>JEE_Unit_5.1.4_StudyCase</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
-    <name>JEE_Unit_2_Homework</name>
+    <name>JEE_Unit_5.1.4_StudyCase</name>
+
+    <properties>
+        <main.class>com.company.Bootstrap</main.class>
+    </properties>
 
     <build>
         <defaultGoal>package</defaultGoal>
+
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -26,7 +31,37 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.6</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>${main.class}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <executions>
+                    <execution>
+                        <id>Main-execution</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <workingDirectory>${project.build.directory}</workingDirectory>
+                    <executable>java</executable>
+                    <arguments>
+                        <argument>${project.build.finalName}</argument>
+                    </arguments>
+                    <mainClass>${main.class}</mainClass>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
@@ -42,11 +77,5 @@
             <artifactId>spring-context</artifactId>
             <version>4.2.5.RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
     </dependencies>
-
 </project>
