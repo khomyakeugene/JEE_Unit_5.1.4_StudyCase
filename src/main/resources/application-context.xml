@@ -5,5 +5,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="bootstrap" class="com.company.Bootstrap"/>
+    <bean id="taskProvider" class="com.company.tasks.NumberTaskProvider"/>
 
 </beans>

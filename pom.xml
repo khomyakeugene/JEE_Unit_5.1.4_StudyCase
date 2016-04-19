@@ -29,7 +29,7 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
+                <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
                     <archive>
@@ -37,21 +37,26 @@
                             <mainClass>${main.class}</mainClass>
                         </manifest>
                     </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
             </plugin>
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.4.0</version>
-                <executions>
-                    <execution>
-                        <id>Main-execution</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <workingDirectory>${project.build.directory}</workingDirectory>
                     <executable>java</executable>
@@ -60,6 +65,14 @@
                     </arguments>
                     <mainClass>${main.class}</mainClass>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>Main-execution</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>
