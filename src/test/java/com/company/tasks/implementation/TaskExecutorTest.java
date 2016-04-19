@@ -56,7 +56,7 @@ public class TaskExecutorTest {
         taskExecutor.execute();
     }
 
-    @Test(timeout = 1000, expected = Exception.class)
+    @Test(timeout = 1000)
     public void test5_testAddTaskAfterExecute() throws Exception {
         taskExecutor.addTask(new CalcAverageDoubleValueTask(emptyDoubleArray), new NotNullValidator<>());
     }

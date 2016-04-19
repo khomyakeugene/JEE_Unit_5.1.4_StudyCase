@@ -30,15 +30,15 @@ public class TaskExecutor<E> implements Executor<E> {
     }
 
     @Override
-    public void addTask(Task<? extends E> task, Validator<E> validator) throws Exception {
-        checkIfExecuteMethodHasNotBeenCalled();
+    public void addTask(Task<? extends E> task, Validator<E> validator) {
+        // checkIfExecuteMethodHasNotBeenCalled();
 
         tasks.add(task);
         validators.add(validator);
     }
 
     @Override
-    public void addTask(Task<? extends E> task) throws Exception {
+    public void addTask(Task<? extends E> task) {
         addTask(task, null);
     }
 
