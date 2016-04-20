@@ -3,6 +3,7 @@ package com.company;
 import com.company.tasks.Executor;
 import com.company.tasks.ExecutorFactory;
 import com.company.tasks.TaskProvider;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
