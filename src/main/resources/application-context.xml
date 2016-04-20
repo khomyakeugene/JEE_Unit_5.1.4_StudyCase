@@ -6,9 +6,11 @@
 
     <bean id="bootstrap" class="com.company.Bootstrap">
         <property name="taskProvider" ref="taskProvider"/>
-        <property name="executor" ref="taskExecutor"/>
+        <property name="executorFactory" ref="executorFactory"/>
     </bean>
     <bean id="taskProvider" class="com.company.tasks.NumberTaskProvider" init-method="init"/>
-    <bean id="taskExecutor" class="com.company.tasks.TaskExecutor"/>
-
+    <bean id="taskExecutor" class="com.company.tasks.TaskExecutor" scope="prototype"/>
+    <bean id="executorFactory" class="com.company.tasks.ExecutorFactory">
+        <lookup-method name="getNumberExecutor" bean="taskExecutor"/>
+    </bean>
 </beans>

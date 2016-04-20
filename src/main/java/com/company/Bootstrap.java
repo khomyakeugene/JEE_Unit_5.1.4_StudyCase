@@ -1,20 +1,25 @@
 package com.company;
 
 import com.company.tasks.*;
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Bootstrap {
     private TaskProvider<Number> taskProvider;
-    private Executor<Number> executor;
+    private ExecutorFactory executorFactory;
 
     public static void main(String[] args) throws Exception  {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("application-context.xml");
         Bootstrap bootstrap = applicationContext.getBean("bootstrap", Bootstrap.class);
+
+        bootstrap.execute();
         bootstrap.execute();
     }
 
     private void execute() throws Exception {
+        Executor<Number> executor = executorFactory.getNumberExecutor();
         taskProvider.getAllTasks().forEach(executor::addTask);
 
         executor.execute();
@@ -29,7 +34,7 @@ public class Bootstrap {
         this.taskProvider = taskProvider;
     }
 
-    public void setExecutor(Executor<Number> executor) {
-        this.executor = executor;
+    public void setExecutorFactory(ExecutorFactory executorFactory) {
+        this.executorFactory = executorFactory;
     }
 }

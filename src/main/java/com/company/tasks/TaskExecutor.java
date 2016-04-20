@@ -17,21 +17,21 @@ public class TaskExecutor<E> implements Executor<E> {
     private ArrayList<E> validResults = new ArrayList<>();
     private ArrayList<E> invalidResults = new ArrayList<>();
 
-    private void checkIfExecuteMethodHasBeenCalled() throws Exception  {
+    private void checkIfExecuteMethodHasBeenCalled() {
         if (!executeMethodHasBeenCalled) {
-            throw new Exception(METHOD_EXECUTE_HAS_NOT_BEEN_CALLED);
+            throw new IllegalStateException(METHOD_EXECUTE_HAS_NOT_BEEN_CALLED);
         }
     }
 
-    private void checkIfExecuteMethodHasNotBeenCalled()  throws Exception {
+    private void checkIfExecuteMethodHasNotBeenCalled() {
         if (executeMethodHasBeenCalled) {
-            throw new Exception(METHOD_EXECUTE_HAS_ALREADY_BEEN_CALLED);
+            throw new IllegalStateException(METHOD_EXECUTE_HAS_ALREADY_BEEN_CALLED);
         }
     }
 
     @Override
     public void addTask(Task<? extends E> task, Validator<E> validator) {
-        // checkIfExecuteMethodHasNotBeenCalled();
+        checkIfExecuteMethodHasNotBeenCalled();
 
         tasks.add(task);
         validators.add(validator);
@@ -71,14 +71,14 @@ public class TaskExecutor<E> implements Executor<E> {
     }
 
     @Override
-    public List<E> getValidResults() throws Exception {
+    public List<E> getValidResults() {
         checkIfExecuteMethodHasBeenCalled();
 
         return validResults;
     }
 
     @Override
-    public List<E> getInvalidResults() throws Exception {
+    public List<E> getInvalidResults() {
         checkIfExecuteMethodHasBeenCalled();
 
         return invalidResults;

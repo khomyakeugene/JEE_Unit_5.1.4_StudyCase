@@ -36,12 +36,12 @@ public class TaskExecutorTest {
         taskExecutor.addTask(new TransformCelsiusToFahrenheitTask(TransformCelsiusToFahrenheitTaskInputData));
     }
 
-    @Test(timeout = 1000, expected = Exception.class)
+    @Test(timeout = 1000, expected = IllegalStateException.class)
     public void test1_testGetValidResultsBeforeExecute() throws Exception {
         taskExecutor.getValidResults();
     }
 
-    @Test(timeout = 1000, expected = Exception.class)
+    @Test(timeout = 1000, expected = IllegalStateException.class)
     public void test2_testGetInvalidResultsBeforeExecute() throws Exception {
         taskExecutor.getInvalidResults();
     }
@@ -56,7 +56,7 @@ public class TaskExecutorTest {
         taskExecutor.execute();
     }
 
-    @Test(timeout = 1000)
+    @Test(timeout = 1000, expected = IllegalStateException.class)
     public void test5_testAddTaskAfterExecute() throws Exception {
         taskExecutor.addTask(new CalcAverageDoubleValueTask(emptyDoubleArray), new NotNullValidator<>());
     }
